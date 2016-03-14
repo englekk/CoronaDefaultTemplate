@@ -10,6 +10,10 @@
 
 -- 캐논 샘플을 참고함 :: https://github.com/coronalabs-samples/CoronaCannon
 
+-- 디자인 크기에 따라 fhd(FullHD, 1080x1920) 또는 hd(720x1280)로 변경하세요.
+-- 디자인 파일이 많아서 용량을 줄이고 싶거나 퍼포먼스를 최적화해야 하는 경우라면 hd를 추천합니다.
+local designSize = "fhd"
+
 if not display then return end -- 데스크탑용 앱은 사용안함
 
 -- 1080x1920 디자인 기준, 레터박스 스케일링용 계산법입니다.
@@ -20,14 +24,15 @@ local w, h = display.pixelWidth, display.pixelHeight
 -- 씬 디자인의 절반
 -- 1080x1920의 경우 540x960이지만 레티나와 기본의 가로 비율을 갖게 하려면 640x960을 적용해야 함
 -- 만약 모든 가로 비율을 동일하게(태블릿은 조금 더 큼) 하고 싶다면 아래 540을 640으로 수정하세요.
-local normalW, normalH = (w / h >= 0.6) and 640 or 540, 960
+local normalW, normalH = (w / h >= 0.6) and 640 or 540, 960 -- 씬 디자인이 1080x1920일 경우 (기본)
+if designSize == "hd" then normalW, normalH = (w / h >= 0.6) and 426.66 or 360, 640 end -- 씬 디자인이 720x1280일 경우
 
 local scale = math.max(normalW / w, normalH / h)
 w, h = w * scale, h * scale
 
 application = {
     content = {
-    width = w,
+      width = w,
         height = h,
         scale = 'letterbox',
         audioPlayFrequency = 44100, -- 11025, 22050, 44100: 높을수록 고음질
@@ -35,9 +40,9 @@ application = {
         xAlign = "left",
         yAlign = "top",
         imageSuffix = {
-      ['@2x'] = 1.1,
-            --['@4x'] = 2.1
-    }
+        ['@2x'] = 1.1,
+              --['@4x'] = 2.1
+      }
     },
     --[[notification =
     {
