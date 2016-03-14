@@ -25,7 +25,7 @@ function scene:show( event )
 --			time = 300,
 --			params = nil
 		}
-		composer.gotoScene("scenes.MainScene", options)
+		composer.gotoScene("scenes.IntroScene", options)
 	end
 end
 
