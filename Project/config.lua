@@ -19,7 +19,7 @@ local w, h = display.pixelWidth, display.pixelHeight
 
 -- 씬 디자인의 절반
 -- 1080x1920의 경우 540x960이지만 레티나와 기본의 가로 비율을 갖게 하려면 640x960을 적용해야 함
--- 만약 모든 가로 비율을 동일하게 하고 싶다면 아래 540을 640으로 수정하세요.
+-- 만약 모든 가로 비율을 동일하게(태블릿은 조금 더 큼) 하고 싶다면 아래 540을 640으로 수정하세요.
 local normalW, normalH = (w / h >= 0.6) and 640 or 540, 960
 
 local scale = math.max(normalW / w, normalH / h)
