@@ -141,7 +141,7 @@ settings = {
 }
 
 local iPhoneIcons = {}
-for i = 1, #settings.iphone.plist.CFBundleIconFiles do
+for i = 2, #settings.iphone.plist.CFBundleIconFiles do -- Icon.png도 제외하려면 2를 1로 수정
     iPhoneIcons[i] = settings.iphone.plist.CFBundleIconFiles[i]
 end
 iPhoneIcons[#iPhoneIcons + 1] = '*.nib'
