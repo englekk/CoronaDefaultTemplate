@@ -42,9 +42,9 @@ settings = {
             {
                 NSAllowsArbitraryLoads = true -- https 뿐만 아니라 http도 사용 가능
             },
-            UIAppFonts = {
-                "NotoSans-Bold.ttf"
-            },
+--            UIAppFonts = {
+--                "NotoSans-Bold.ttf"
+--            },
             CFBundleIconFile = "Icon.png",
             CFBundleIconFiles = {
                 'Icon.png',
