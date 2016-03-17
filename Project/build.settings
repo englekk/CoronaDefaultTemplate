@@ -20,7 +20,7 @@ settings = {
 --[[
     plugins =
     {
-        ["CoronaProvider.ads.admob"] =
+        ["plugin.google.play.services"] =
         {
             publisherId = "com.coronalabs",
             supportedPlatforms = { iphone=true, android=true }
@@ -90,7 +90,8 @@ settings = {
         isGame = true, -- 게임이 아니라면 false
         usesPermissions =
         {
-            "android.permission.INTERNET"
+            "android.permission.INTERNET",
+--          "android.permission.ACCESS_NETWORK_STATE",
         },
         --[[
             usesFeatures =
