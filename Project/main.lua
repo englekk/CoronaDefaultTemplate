@@ -59,6 +59,10 @@ local function on_SystemEvent(e)
 	elseif _type == "applicationExit" then -- 앱이 완전히 종료될 때
 	elseif _type == "applicationSuspend" then -- 전화를 받거나 홈 버튼 등을 눌러서 앱을 빠져나갈 때
 	elseif _type == "applicationResume" then -- Suspend 후 다시 돌아왔을 때
+		if system.getInfo("environment") == "simulator" or string.lower(system.getInfo("platformName")) ~= "android" or isAndroidFullScreen == false then
+		else -- 안드로이드이면서 풀 스크린 모드일 경우
+			native.setProperty( "androidSystemUiVisibility", "immersiveSticky" )
+		end
 	end
 end
 Runtime:addEventListener("system", on_SystemEvent)
