@@ -32,6 +32,7 @@ settings = {
         {
             CFBundleIdentifier = "com.wonhada.wonhadacoronatemplate", -- 수정하세요
             CFBundleDisplayName = "WonHadaCoronaTemplate", -- 수정하세요
+            CoronaWindowMovesWhenKeyboardAppears = true,
 --          MinimumOSVersion="6.0",
             UIApplicationExitsOnSuspend = false,
             UIStatusBarHidden = false,
@@ -83,6 +84,7 @@ settings = {
     
     android =
     {
+    	coronaWindowMovesWhenKeyboardAppears = true,
         installLocation = "auto",
         largeHeap = true,
         usesExpansionFile = false,

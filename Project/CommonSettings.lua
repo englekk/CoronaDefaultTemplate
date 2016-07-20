@@ -39,7 +39,7 @@ __isSimulator__ = system.getInfo("environment") == "simulator"
 __scaleFactor__ = 0.5 -- 모든 크기의 기준이 되는 비율 기준값
 __setScaleFactor = function (obj, ratio)
 	ratio = ratio or __scaleFactor__
-	obj.width, obj.height = obj.width * ratio, obj.height * ratio
+	obj.width, obj.height = math.round(obj.width * ratio), math.round(obj.height * ratio)
 end
 --====================================--
 
