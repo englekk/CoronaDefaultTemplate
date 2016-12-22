@@ -8,7 +8,7 @@
 -- MIT License :: WonHada Library에 한정되며, 라이선스와 저작권 관련 명시만 지켜주면 되는 라이선스
 ----------------------------------------
 
--- !!! 아직 테스트가 충분하지 않지만 나쁘지 않은 것 같아서 적용합니다. 문제가 있다면 config.lua.bak 파일로 교체하시고 피드백(englekk@naver.com) 부탁드립니다.
+-- !!! 아직 테스트가 충분하지 않지만 나쁘지 않은 것 같아서 적용합니다. 문제가 있다면 config.lua_bak 파일로 교체하시고 피드백(englekk@naver.com) 부탁드립니다.
 
 -- SmartPixel config.lua
 -- GitHub: https://github.com/Lerg/smartpixel-config-lua
