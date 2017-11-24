@@ -28,6 +28,7 @@ settings = {
     }, 
 ]]
     iphone = {
+        xcassets = "Images.xcassets",
         plist =
         {
             CFBundleIdentifier = "com.wonhada.wonhadacoronatemplate", -- 수정하세요
@@ -37,7 +38,7 @@ settings = {
             UIApplicationExitsOnSuspend = false,
             UIStatusBarHidden = false,
             UIPrerenderedIcon = true,
---            UILaunchStoryboardName = 'launchscreen', -- launchscreen.nib 사용시
+            UILaunchStoryboardName = "LaunchScreen",
             UIBackgroundModes = {'remote-notification'}, -- 앱이 활성화 상태가 아닐때라도 백그라운드 프로세스에서 처리 가능
             NSAppTransportSecurity = 
             {
