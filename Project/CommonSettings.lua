@@ -41,6 +41,12 @@ __setScaleFactor = function (obj, ratio)
 	ratio = ratio or __scaleFactor__
 	obj.width, obj.height = math.round(obj.width * ratio), math.round(obj.height * ratio)
 end
+__applyScale = function (obj, targetWidth)
+    local sf = targetWidth / obj.width -- scaleFactor
+    sf = math.round(sf * 10000) / 10000
+    obj.xScale = sf
+    obj.yScale = obj.xScale
+end
 --====================================--
 
 -- Global 변수값 확인
