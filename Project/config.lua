@@ -8,8 +8,6 @@
 -- MIT License :: WonHada Library에 한정되며, 라이선스와 저작권 관련 명시만 지켜주면 되는 라이선스
 ----------------------------------------
 
--- !!! 세르게이의 config.lua를 적용한 후 문제가 생길 경우 이 파일로 바꿔서 사용하세요.
-
 -- 캐논 샘플을 참고함 :: https://github.com/coronalabs-samples/CoronaCannon
 
 -- 디자인 크기에 따라 fhd(FullHD, 1080x1920) 또는 hd(720x1280)로 변경하세요.

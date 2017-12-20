@@ -31,7 +31,7 @@ settings = {
         xcassets = "Images.xcassets",
         plist =
         {
-            CFBundleIdentifier = "com.wonhada.wonhadacoronatemplate", -- 수정하세요
+            CFBundleIdentifier = "com.wonhada.wonhadacoronatemplate", -- 수정하세요. 만약 네이티브 빌드라면 꼭 삭제하고 네이티브 프로젝트에서 설정하세요.
             CFBundleDisplayName = "WonHadaCoronaTemplate", -- 수정하세요
             CoronaWindowMovesWhenKeyboardAppears = true,
 --          MinimumOSVersion="6.0",
@@ -47,7 +47,7 @@ settings = {
 --            UIAppFonts = {
 --                "NotoSans-Bold.ttf"
 --            },
-            CFBundleIconFile = "Icon.png",
+--[[        CFBundleIconFile = "Icon.png",
             CFBundleIconFiles = {
                 'Icon.png',
                 'Icon@2x.png',
@@ -65,6 +65,7 @@ settings = {
                 'Icon-Small.png',
                 'Icon-Small@2x.png'
             },
+]]
             
             --[[
             -- iOS app URL schemes:

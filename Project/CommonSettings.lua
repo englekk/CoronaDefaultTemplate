@@ -36,16 +36,18 @@ end
 __appContentWidth__ = display.actualContentWidth
 __appContentHeight__ = display.actualContentHeight
 __isSimulator__ = system.getInfo("environment") == "simulator"
-__scaleFactor__ = 0.5 -- 모든 크기의 기준이 되는 비율 기준값
+__scaleFactor__ = math.floor((__appContentWidth__ / 1080) * 1000) / 1000 -- fhd는 1080(0.5), 모든 크기의 기준이 되는 비율 기준값
 __setScaleFactor = function (obj, ratio)
 	ratio = ratio or __scaleFactor__
 	obj.width, obj.height = math.round(obj.width * ratio), math.round(obj.height * ratio)
 end
-__applyScale = function (obj, targetWidth)
-    local sf = targetWidth / obj.width -- scaleFactor
+__applyScale = function (obj, targetPxSize, widthBase)
+    if widthBase == nil then widthBase = true end -- 가로 기준
+    
+    local sf = targetPxSize / (widthBase and obj.width or obj.height) -- scaleFactor
     sf = math.round(sf * 10000) / 10000
     obj.xScale = sf
-    obj.yScale = obj.xScale
+    obj.yScale = sf
 end
 --====================================--
 
