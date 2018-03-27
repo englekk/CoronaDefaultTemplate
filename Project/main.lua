@@ -16,13 +16,50 @@
 -- 앵커포인트는 좌상단 
 ---------------------------------
 
+require("CommonSettings")
+
+--[[local SQLiteManager = require("wonhada.managers.SQLiteManager")
+local FileUtils = require("wonhada.utils.FileUtils")
+local DeviceInfo = require("wonhada.utils.DeviceInfo")]]
+
+--========== Config DB 접속 및 초기화 Begin ==========--
+-- Config DB 접속 (없으면 생성)
+--[[SQLiteManager.useConfigDB("ConfigData.db", system.DocumentsDirectory)
+
+-- local isFirstInstalled = (SQLiteManager.getConfig("coin") == nil)
+
+-- Config DB 데이터 초기화
+-- SQLiteManager.initConfig("coin", 0)]]
+--========== Config DB 접속 및 초기화 End ==========--
+
+--=====================--
+-- tmp 폴더의 모든 파일 삭제
+--[[FileUtils.deleteAllFiles(system.TemporaryDirectory, false)
+
+-- 필요한 폴더들 생성
+-- FileUtils.createDirectory(system.pathForFile("assets", system.DocumentsDirectory))
+-- FileUtils.createDirectory(system.pathForFile("cate", system.DocumentsDirectory))
+-- FileUtils.createDirectory(system.pathForFile("img", system.DocumentsDirectory))
+-- FileUtils.createDirectory(system.pathForFile("thumb", system.DocumentsDirectory))
+-- FileUtils.createDirectory(system.pathForFile("save", system.DocumentsDirectory))
+]]
+--=====================--
+
+--=====================--
+-- 푸시 노티피케이션: {"gcm.n.e":"1","aps":{"alert":{"title":"4444","body":"test"}},"google.c.a.e":"1","gcm.message_id":"0:1516010244154055%9c6ca6f99c6ca6f9","google.c.a.c_l":"1111","google.c.a.udt":"0","google.c.a.ts":"1516010243","google.c.a.c_id":"1700666465729963001"}
+--[[local function on_DidReceiveRemoteNotification(e)
+    Runtime:removeEventListener("didReceiveRemoteNotification", on_DidReceiveRemoteNotification)
+    
+    local pushNotiObj = (DeviceInfo.isiOS and e or e.data)
+end
+Runtime:addEventListener("didReceiveRemoteNotification", on_DidReceiveRemoteNotification)]]
+--=====================--
+
 -- 안드로이드 풀 스크린 모드 여부
 local isAndroidFullScreen = true
 
 -- 이 함수가 시작점입니다. 나머지는 신경쓰지 마세요. (-:
 local function startApp()
-	require("CommonSettings")
-	
 	local composer = require "composer"
 	composer.gotoScene("MainSceneStarter")
 end

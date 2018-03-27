@@ -13,17 +13,27 @@
 -- portrait, portraitUpsideDown, landscapeLeft, landscapeRight
 
 settings = {
+    splashScreen = 
+    {
+        enable = true
+    },
     orientation = {
         default = "portrait",
-        supported = { "portrait" }
+        supported = { "portrait", "portraitUpsideDown" }
     },
+
+--    build =
+--    {
+--        neverStripDebugInfo = true -- corona native는 여기서 적용안됨, AOS 그래들의 CONFIGURATION을 debug로 변경하면 됨
+--    },
+
 --[[
     plugins =
     {
         ["plugin.google.play.services"] =
         {
             publisherId = "com.coronalabs",
-            supportedPlatforms = { iphone=true, android=true }
+            supportedPlatforms = { iphone=false, android=true }
         },
     }, 
 ]]
@@ -31,19 +41,43 @@ settings = {
         xcassets = "Images.xcassets",
         plist =
         {
-            CFBundleIdentifier = "com.wonhada.wonhadacoronatemplate", -- 수정하세요. 만약 네이티브 빌드라면 꼭 삭제하고 네이티브 프로젝트에서 설정하세요.
+--          CFBundleIdentifier = "com.wonhada.wonhadacoronatemplate", -- 수정하세요. 만약 네이티브 빌드라면 꼭 삭제하고 네이티브 프로젝트에서 설정하세요.
             CFBundleDisplayName = "WonHadaCoronaTemplate", -- 수정하세요
-            CoronaWindowMovesWhenKeyboardAppears = true,
+            CoronaWindowMovesWhenKeyboardAppears = true, -- 만약 네이티브 빌드라면 네이티브에 설정
 --          MinimumOSVersion="6.0",
             UIApplicationExitsOnSuspend = false,
             UIStatusBarHidden = false,
             UIPrerenderedIcon = true,
+--            LSApplicationQueriesSchemes = { "fb", "instagram" },
             UILaunchStoryboardName = "LaunchScreen",
             UIBackgroundModes = {'remote-notification'}, -- 앱이 활성화 상태가 아닐때라도 백그라운드 프로세스에서 처리 가능
             NSAppTransportSecurity = 
             {
                 NSAllowsArbitraryLoads = true -- https 뿐만 아니라 http도 사용 가능
             },
+--            CoronaDelegates = { "CoronaNotificationsDelegate" }, -- require( "plugin.notifications" ) 사용시 필요
+--[[            UIAppFonts = {
+                "712serif.ttf"
+            },
+            CFBundleIconFile = "Icon.png",
+            CFBundleIconFiles = {
+                'Icon.png',
+                'Icon@2x.png',
+                'Icon-Small-40.png',
+                'Icon-Small-40@2x.png',
+                'Icon-60.png',
+                'Icon-60@2x.png',
+                'Icon-60@3x.png',
+                'Icon-72.png',
+                'Icon-72@2x.png',
+                'Icon-76.png',
+                'Icon-76@2x.png',
+                'Icon-Small-50.png',
+                'Icon-Small-50@2x.png',
+                'Icon-Small.png',
+                'Icon-Small@2x.png'
+            },
+]]
             
             --[[
             -- iOS app URL schemes:
@@ -64,7 +98,7 @@ settings = {
     
     android =
     {
-    	coronaWindowMovesWhenKeyboardAppears = true,
+    	coronaWindowMovesWhenKeyboardAppears = true, -- 만약 네이티브 빌드라면 네이티브에 설정
         installLocation = "auto",
         largeHeap = true,
         usesExpansionFile = false,
@@ -73,7 +107,10 @@ settings = {
         usesPermissions =
         {
             "android.permission.INTERNET",
+--          "android.permission.WRITE_EXTERNAL_STORAGE",
+--          "android.permission.READ_EXTERNAL_STORAGE",
 --          "android.permission.ACCESS_NETWORK_STATE",
+--          "android.permission.WAKE_LOCK"
         },
         --[[
             usesFeatures =
@@ -123,23 +160,12 @@ settings = {
     }
 }
 
-local iPhoneIcons = {
-    'Icon.png',
-    'Icon@2x.png',
-    'Icon-Small-40.png',
-    'Icon-Small-40@2x.png',
-    'Icon-60.png',
-    'Icon-60@2x.png',
-    'Icon-60@3x.png',
-    'Icon-72.png',
-    'Icon-72@2x.png',
-    'Icon-76.png',
-    'Icon-76@2x.png',
-    'Icon-Small-50.png',
-    'Icon-Small-50@2x.png',
-    'Icon-Small.png',
-    'Icon-Small@2x.png'
-}
+local iPhoneIcons = {}
+if settings.iphone.plist.CFBundleIconFiles then
+    for i = 2, #settings.iphone.plist.CFBundleIconFiles do -- Icon.png도 제외하려면 2를 1로 수정
+        iPhoneIcons[i] = settings.iphone.plist.CFBundleIconFiles[i]
+    end
+end
 iPhoneIcons[#iPhoneIcons + 1] = '*.nib'
 iPhoneIcons[#iPhoneIcons + 1] = 'Default-*.png'
 iPhoneIcons[#iPhoneIcons + 1] = 'iTunes*'

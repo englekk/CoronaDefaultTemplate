@@ -44,6 +44,14 @@ application = {
               --['@4x'] = 2.1
       }
     },
+    --[[license =
+    {
+        google =
+        {
+            key = "",
+            policy = "serverManaged"
+        },
+    },]]
     --[[notification =
     {
       iphone =

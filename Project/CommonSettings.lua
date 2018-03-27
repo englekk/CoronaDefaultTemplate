@@ -10,38 +10,66 @@
 
 --[[
 	개발 편의를 위한 Global 변수들
-	__statusBarHeight__ -- StatusBar 높이
 	__appContentWidth__ -- application.content.width
 	__appContentHeight__ -- application.content.height
 	__isSimulator__ -- 시뮬레이터에서 실행중인지 여부
 ]]
 
--- 상태바 타입을 입력하세요.
-local statusBarType = "hidden" -- 소문자로.. hidden, default, translucent, dark
+__isSimulator__ = system.getInfo("environment") == "simulator"
+
+-- is iPhone X?
+local architectureInfo = system.getInfo("architectureInfo")
+local isiPhoneX = ( string.find( architectureInfo, "iPhone10,3" ) ~= nil ) or ( string.find( architectureInfo, "iPhone10,6" ) ~= nil )
+if __isSimulator__ then
+    local width = math.floor((display.actualContentWidth/display.contentScaleX)+0.5)
+    local height = math.floor((display.actualContentHeight/display.contentScaleY)+0.5)
+    local wh = string.format("%d_%d", width, height )
+    isiPhoneX = (wh == "1125_2436")
+end
+
+local statusBarType = display.DefaultStatusBar
+__setStatusBar = function (mode)
+    statusBarType = mode
+    display.setStatusBar(mode)
+end
+__getStatusBar = function ()
+    return statusBarType
+end
+
+-- TODO: 첫 상태바 모드 설정
+__setStatusBar(display.HiddenStatusBar)
+
+__getStatusBarHeight = function ()
+    if statusBarType == display.HiddenStatusBar then
+        return 0
+    end
+    
+    return display.topStatusBarContentHeight
+end
+
+__useSafeArea__ = true -- iPhone X를 위한 전역 변수
+if not isiPhoneX then __useSafeArea__ = false end
 
 --====================================--
 -- 주의!! 아래 코드부터 수정하지 마세요.
-if statusBarType == "hidden" then
-	display.setStatusBar( display.HiddenStatusBar )
-
-    __statusBarHeight__ = 0 -- StatusBar의 높이
-else
-	if statusBarType == "default" then display.setStatusBar( display.DefaultStatusBar )
-	elseif statusBarType == "translucent" then display.setStatusBar( display.TranslucentStatusBar )
-	elseif statusBarType == "dark" then display.setStatusBar( display.DarkStatusBar ) end
-	
-	__statusBarHeight__ = display.topStatusBarContentHeight -- StatusBar의 높이
-end
 -- App의 너비, 높이
-__appContentWidth__ = display.actualContentWidth
-__appContentHeight__ = display.actualContentHeight
-__isSimulator__ = system.getInfo("environment") == "simulator"
+local topInset, leftInset, bottomInset, rightInset = display.getSafeAreaInsets()
+__safeAreaInsets__ = {top=topInset, left=leftInset, bottom=bottomInset, right=rightInset}
+__appContentWidth__ = (__useSafeArea__ and display.safeActualContentWidth or display.actualContentWidth)
+__appContentHeight__ = (__useSafeArea__ and display.safeActualContentHeight or display.actualContentHeight)
 __scaleFactor__ = math.floor((__appContentWidth__ / 1080) * 1000) / 1000 -- fhd는 1080(0.5), 모든 크기의 기준이 되는 비율 기준값
 __setScaleFactor = function (obj, ratio)
 	ratio = ratio or __scaleFactor__
 	obj.width, obj.height = math.round(obj.width * ratio), math.round(obj.height * ratio)
 end
+
+__isNilObject = function (obj)
+    return (obj == nil or obj.parent == nil)
+end
+
 __applyScale = function (obj, targetPxSize, widthBase)
+    if __isNilObject(obj) then return end
+    
     if widthBase == nil then widthBase = true end -- 가로 기준
     
     local sf = targetPxSize / (widthBase and obj.width or obj.height) -- scaleFactor
@@ -51,8 +79,17 @@ __applyScale = function (obj, targetPxSize, widthBase)
 end
 --====================================--
 
+__activityIndicatorState = false
+__setActivityIndicator = function (state)
+    if state and __activityIndicatorState then return end
+    if (not state) and (not __activityIndicatorState) then return end
+    
+    native.setActivityIndicator(state)
+    __activityIndicatorState = state
+end
+
 -- Global 변수값 확인
--- print(__statusBarHeight__, __appContentWidth__, __appContentHeight__, __isSimulator__)
+-- print(__appContentWidth__, __appContentHeight__, __isSimulator__)
 
 -- 앵커포인트 좌상단으로 세팅
 display.setDefault( "anchorX", 0 )
